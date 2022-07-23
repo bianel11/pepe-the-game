@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public float healthQty = 500;
+    public float healthQty;
     private Animator animator;
     private IEnumerator coroutine;
     private bool isNormal = true;
@@ -55,9 +55,22 @@ public class EnemyController : MonoBehaviour
         if (espada.name == "clavicle_r")
         {
             healthQty--;
+            if (healthQty <= 0)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
             if (isNormal)
             {
+                Vector3 direction = transform.position - player.transform.position;
+                direction.Normalize();
+
+                gameObject.transform.position = gameObject.transform.position + direction;
+
+
+
+
                 isNormal = false;
                 animator.Play("GetHit", -1, 0f);
                 coroutine = WaitAndPrint(2.0f);
