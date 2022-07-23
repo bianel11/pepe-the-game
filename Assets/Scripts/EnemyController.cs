@@ -63,29 +63,27 @@ public class EnemyController : MonoBehaviour
 
             if (isNormal)
             {
+                // Back position after hit
                 Vector3 direction = transform.position - player.transform.position;
                 direction.Normalize();
-
                 gameObject.transform.position = gameObject.transform.position + direction;
 
-
-
-
+                // Animations
                 isNormal = false;
                 animator.Play("GetHit", -1, 0f);
-                coroutine = WaitAndPrint(2.0f);
+                coroutine = WaitAnimation(1.0f);
                 StartCoroutine(coroutine);
             }
         }
 
     }
 
-    private IEnumerator WaitAndPrint(float waitTime)
+    private IEnumerator WaitAnimation(float waitTime)
     {
         while (isNormal == false)
         {
             yield return new WaitForSeconds(waitTime);
-            print("WaitAndPrint " + Time.time);
+            // print("WaitAnimation " + Time.time);
             isNormal = true;
 
         }
