@@ -12,9 +12,6 @@ public class PlayerController : MonoBehaviour
 
     public float playerRotationSpeed;
 
-    // private string iddle = "Idle_Normal_SwordAndShield";
-    // private string running = "MoveBWD_Battle_InPlace_SwordAndShield";
-
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Attaque");
             anim.SetBool("isRunning", false);
             anim.SetBool("isAttack", true);
         }
