@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using TMPro;
 public class EnemyController : MonoBehaviour
 {
     public float healthQty;
     private Animator animator;
     private IEnumerator coroutine;
     private bool isNormal = true;
+    public bool isAttacking = false;
 
 
     public GameObject player;
@@ -16,11 +17,14 @@ public class EnemyController : MonoBehaviour
     public bool isAngered;
     public NavMeshAgent _agent;
 
+    private TextMeshPro label;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-
+        label = gameObject.GetComponentInChildren<TextMeshPro>();
+        ReloadLabel();
     }
 
     // Update is called once per frame
@@ -31,6 +35,8 @@ public class EnemyController : MonoBehaviour
         if (distance <= 5)
         {
             isAngered = true;
+            if (distance <= 1 && !isAttacking) AttackPlayer();
+
         }
         if (distance > 5f)
         {
@@ -48,6 +54,28 @@ public class EnemyController : MonoBehaviour
             _agent.isStopped = true;
         }
     }
+    void ReloadLabel()
+    {
+        label.text = healthQty.ToString();
+    }
+    void AttackPlayer()
+    {
+        isAttacking = true;
+        coroutine = WaitForAttack(2.0f);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator WaitForAttack(float waitTime)
+    {
+        while (isAttacking == true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            isAttacking = false;
+            print("WaitForAttack " + Time.time);
+            // isNormal = true;
+
+        }
+    }
 
     void OnTriggerEnter(Collider espada)
     {
@@ -55,6 +83,7 @@ public class EnemyController : MonoBehaviour
         if (espada.name == "clavicle_r")
         {
             healthQty--;
+            ReloadLabel();
             if (healthQty <= 0)
             {
                 Destroy(gameObject);
@@ -71,7 +100,7 @@ public class EnemyController : MonoBehaviour
                 // Animations
                 isNormal = false;
                 animator.Play("GetHit", -1, 0f);
-                coroutine = WaitAnimation(1.0f);
+                coroutine = WaitAnimation(3.0f);
                 StartCoroutine(coroutine);
             }
         }
