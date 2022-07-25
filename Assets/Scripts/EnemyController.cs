@@ -30,6 +30,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!player) return;
         distance = Vector3.Distance(player.transform.position, this.transform.position);
 
         if (distance <= 5)
@@ -72,6 +73,7 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             isAttacking = false;
             print("WaitForAttack " + Time.time);
+            player.GetComponent<PlayerController>().QuitarSalud();
             // isNormal = true;
 
         }

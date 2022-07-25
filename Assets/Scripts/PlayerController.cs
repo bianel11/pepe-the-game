@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class PlayerController : MonoBehaviour
@@ -9,20 +9,44 @@ public class PlayerController : MonoBehaviour
     private Rigidbody player;
     private Animator anim;
     public float playerVelocity;
-
+    public float health;
     public float playerRotationSpeed;
+    public Text label;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
+        ReloadLabel();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void QuitarSalud()
+    {
+        health = health - 10;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            ShowLossGame();
+        }
+        else
+        {
+            ReloadLabel();
+        }
+    }
+    void ShowLossGame()
+    {
+        label.text = "PERDISTE EL JUEGO";
+    }
+    void ReloadLabel()
+    {
+        label.text = "Salud: " + health.ToString();
     }
 
     private void FixedUpdate()
