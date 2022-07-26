@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void QuitarSalud()
+    public void RemoveHealth()
     {
         health = health - 10;
         if (health <= 0)

@@ -19,9 +19,12 @@ public class EnemyController : MonoBehaviour
 
     private TextMeshPro label;
 
+    Camera cameraToLookAt;
+
     // Start is called before the first frame update
     void Start()
     {
+        cameraToLookAt = Camera.main;
         animator = gameObject.GetComponent<Animator>();
         label = gameObject.GetComponentInChildren<TextMeshPro>();
         ReloadLabel();
@@ -73,7 +76,7 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             isAttacking = false;
             print("WaitForAttack " + Time.time);
-            player.GetComponent<PlayerController>().QuitarSalud();
+            player.GetComponent<PlayerController>().RemoveHealth();
             // isNormal = true;
 
         }
@@ -118,6 +121,13 @@ public class EnemyController : MonoBehaviour
             isNormal = true;
 
         }
+    }
+
+    // Update is called once per frame 
+    void LateUpdate()
+    {
+        label.transform.LookAt(cameraToLookAt.transform);
+        label.transform.rotation = Quaternion.LookRotation(cameraToLookAt.transform.forward);
     }
 
 }
