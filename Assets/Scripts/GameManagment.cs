@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManagment : MonoBehaviour
 {
     public static GameManagment Instance;
-    [SerializeField] private float playerPoints = 0;
+    public float playerPoints = 0;
 
     private void Awake()
     {
@@ -25,8 +25,6 @@ public class GameManagment : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-
-
 
     public void sumPoints(float points)
     {

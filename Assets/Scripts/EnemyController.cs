@@ -20,13 +20,14 @@ public class EnemyController : MonoBehaviour
     private TextMeshPro label;
 
     Camera cameraToLookAt;
-
+    private SceneManagment sceneManagment;
     // Start is called before the first frame update
     void Start()
     {
         cameraToLookAt = Camera.main;
         animator = gameObject.GetComponent<Animator>();
         label = gameObject.GetComponentInChildren<TextMeshPro>();
+        sceneManagment = GameObject.Find("SceneManagment").GetComponent<SceneManagment>();
         ReloadLabel();
     }
 
@@ -92,6 +93,8 @@ public class EnemyController : MonoBehaviour
             if (healthQty <= 0)
             {
                 Destroy(gameObject);
+                sceneManagment.AddPoints(100);
+
                 return;
             }
 
