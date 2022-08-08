@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public void RemoveHealth()
     {
+        // GameManagment.Instance.moveNextLevel();
         health = health - 10;
         if (health <= 0)
         {
