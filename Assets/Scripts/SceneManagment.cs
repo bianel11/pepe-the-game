@@ -30,4 +30,12 @@ public class SceneManagment : MonoBehaviour
     {
 
     }
+
+    void LateUpdate()
+    {
+        if (GameObject.FindGameObjectsWithTag("SlimeEnemy").Length == 0)
+        {
+            GameManagment.Instance.moveNextLevel();
+        }
+    }
 }
