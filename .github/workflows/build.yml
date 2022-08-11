@@ -3,50 +3,8 @@ name: Actions 😎
 on: [push, workflow_dispatch]
 
 jobs:
-  # build:
-  #   name: Build my project ✨
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # Checkout
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
-
-  #     # Cache
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: Library
-  #         key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-  #         restore-keys: |
-  #           Library-
-
-  #     # # Test
-  #     # - name: Run tests
-  #     #   uses: game-ci/unity-test-runner@v2
-  #     #   env:
-  #     #     UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  #     #   with:
-  #     #     githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-  #     # Build
-  #     - name: Build project
-  #       uses: game-ci/unity-builder@v2
-  #       env:
-  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  #         UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-  #         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-  #       with:
-  #         targetPlatform: StandaloneWindows64
-
-  #     # Output
-  #     - uses: actions/upload-artifact@v2
-  #       with:
-  #         name: Build
-  #         path: build
-
-  buildWeb:
-    name: Build my project web
+  build:
+    name: Build my project ✨
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -80,10 +38,20 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: WebGL
+          targetPlatform: StandaloneWindows64
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
           name: Build
           path: build
+
+      - name: Build info
+        run: echo ${{ github.sha }} > Build.zip
+      - name: Test
+        run: cat Build.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: Build.zip
