@@ -22,14 +22,6 @@ jobs:
           restore-keys: |
             Library-
 
-      # # Test
-      # - name: Run tests
-      #   uses: game-ci/unity-test-runner@v2
-      #   env:
-      #     UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #   with:
-      #     githubToken: ${{ secrets.GITHUB_TOKEN }}
-
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
@@ -40,14 +32,16 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
 
-      # Output
-      - uses: actions/upload-artifact@v2
+      # Compress folder
+      - name: Compress build folder
+      - uses: vimtor/action-zip@v1
         with:
-          name: Build
-          path: build
+          files: build
+          dest: Build.zip
 
       - name: Build info
         run: echo ${{ github.sha }} > Build.zip
+
       - name: Test
         run: cat Build.zip
 
