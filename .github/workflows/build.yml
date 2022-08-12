@@ -34,7 +34,7 @@ jobs:
 
       # Compress folder
       - name: Compress build folder
-      - uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@v1
         with:
           files: build
           dest: Build.zip
