@@ -10,8 +10,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator coroutine;
     private bool isNormal = true;
     public bool isAttacking = false;
-
-
+    public float attackVelocity = 1.0f;
     public GameObject player;
     public float distance;
     public bool isAngered;
@@ -66,7 +65,7 @@ public class EnemyController : MonoBehaviour
     void AttackPlayer()
     {
         isAttacking = true;
-        coroutine = WaitForAttack(2.0f);
+        coroutine = WaitForAttack(attackVelocity); // time to attack 
         StartCoroutine(coroutine);
     }
 

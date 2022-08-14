@@ -27,9 +27,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void AddHealth(float qty)
+    {
+        health += qty;
+        ReloadLabel();
+    }
+
     public void RemoveHealth()
     {
-        // GameManagment.Instance.moveNextLevel();
         health = health - 10;
         if (health <= 0)
         {
