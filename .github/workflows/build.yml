@@ -37,13 +37,7 @@ jobs:
         uses: vimtor/action-zip@v1
         with:
           files: build
-          dest: Build.zip
-
-      # - name: Build info
-      #   run: echo ${{ github.sha }} > Build.zip
-
-      # - name: Test
-      #   run: cat Build.zip
+          dest: Build-Windows.zip
 
       - name: show folder info
         run: |
@@ -58,11 +52,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: Build.zip
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: |
-            Build.zip
-            build
+          files: Build-Windows.zip
