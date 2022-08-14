@@ -32,26 +32,30 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
 
-      # Compress folder
-      - name: Compress build folder
-        uses: vimtor/action-zip@v1
-        with:
-          files: build
-          dest: Build.zip
+      # # Compress folder
+      # - name: Compress build folder
+      #   uses: vimtor/action-zip@v1
+      #   with:
+      #     files: build
+      #     dest: Build.zip
 
-      - name: Build info
-        run: echo ${{ github.sha }} > Build.zip
+      # - name: Build info
+      #   run: echo ${{ github.sha }} > Build.zip
 
-      - name: Test
-        run: cat Build.zip
+      # - name: Test
+      #   run: cat Build.zip
 
-      - name: Generate release tag
-        id: tag
+      - name: show folder info
         run: |
-          echo "::set-output name=release_tag::Version_$(date +"%Y.%m.%d_%H-%M")"
+          ls -ahl
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: Build.zip
+      # - name: Generate release tag
+      #   id: tag
+      #   run: |
+      #     echo "::set-output name=release_tag::Version_$(date +"%Y.%m.%d_%H-%M")"
+
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: ${{ steps.tag.outputs.release_tag }}
+      #     files: Build.zip
