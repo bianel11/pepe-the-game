@@ -45,7 +45,11 @@ public class BossController : MonoBehaviour
     {
 
         resetAnimations();
-        if (!player) return;
+        if (!player)
+        {
+            isAngered = false;
+            return;
+        };
         distance = Vector3.Distance(player.transform.position, this.transform.position);
 
         if (distance <= focusDistance)
