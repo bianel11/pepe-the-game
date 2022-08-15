@@ -166,12 +166,12 @@ MonoBehaviour:
   m_margin: {x: 8.995073, y: 0.37512207, z: 9.62816, w: 3.4232178}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 212871670}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 212871670}
+  m_maskType: 0
 --- !u!1 &1019367587621702
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ Transform:
   - {fileID: 4835855552950442}
   - {fileID: 212871668}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95471671811264702
 Animator:
@@ -291,10 +291,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthQty: 50
   isAttacking: 0
+  attackDelay: 0.8
   player: {fileID: 0}
   distance: 0
   isAngered: 0
   _agent: {fileID: 992947010}
+  focusDistance: 5
+  damage: 5
 --- !u!195 &992947010
 NavMeshAgent:
   m_ObjectHideFlags: 0

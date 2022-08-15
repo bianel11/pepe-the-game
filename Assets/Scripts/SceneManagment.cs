@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SceneManagment : MonoBehaviour
 {
     public Text playerPoints;
-
+    public int enemiesCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +33,8 @@ public class SceneManagment : MonoBehaviour
 
     void LateUpdate()
     {
+        enemiesCount = GameObject.FindGameObjectsWithTag("SlimeEnemy").Length;
+
         if (GameObject.FindGameObjectsWithTag("SlimeEnemy").Length == 0)
         {
             GameManagment.Instance.moveNextLevel();

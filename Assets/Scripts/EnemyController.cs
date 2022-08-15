@@ -10,12 +10,13 @@ public class EnemyController : MonoBehaviour
     private IEnumerator coroutine;
     private bool isNormal = true;
     public bool isAttacking = false;
-    public float attackVelocity = 1.0f;
+    public float attackDelay = 1.0f;
     public GameObject player;
     public float distance;
     public bool isAngered;
     public NavMeshAgent _agent;
-
+    public float focusDistance = 5f;
+    public float damage = 10f;
     private TextMeshPro label;
 
     Camera cameraToLookAt;
@@ -36,13 +37,13 @@ public class EnemyController : MonoBehaviour
         if (!player) return;
         distance = Vector3.Distance(player.transform.position, this.transform.position);
 
-        if (distance <= 5)
+        if (distance <= focusDistance)
         {
             isAngered = true;
             if (distance <= 1 && !isAttacking) AttackPlayer();
 
         }
-        if (distance > 5f)
+        if (distance > focusDistance)
         {
             isAngered = false;
         }
@@ -65,7 +66,7 @@ public class EnemyController : MonoBehaviour
     void AttackPlayer()
     {
         isAttacking = true;
-        coroutine = WaitForAttack(attackVelocity); // time to attack 
+        coroutine = WaitForAttack(attackDelay); // time to attack 
         StartCoroutine(coroutine);
     }
 
@@ -76,8 +77,10 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             isAttacking = false;
             print("WaitForAttack " + Time.time);
-            player.GetComponent<PlayerController>().RemoveHealth();
-            // isNormal = true;
+            animator.Play("Attack01", -1, 0f);
+
+            player.GetComponent<PlayerController>().RemoveHealth(damage);
+
 
         }
     }

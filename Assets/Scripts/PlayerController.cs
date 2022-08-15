@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
         ReloadLabel();
     }
 
-    public void RemoveHealth()
+    public void RemoveHealth(float damage)
     {
-        health = health - 10;
+        health = health - damage;
         if (health <= 0)
         {
             Destroy(gameObject);
