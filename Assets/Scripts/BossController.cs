@@ -11,7 +11,7 @@ public class BossController : MonoBehaviour
     public bool isAngered;
     public bool isAttacking = false;
     public NavMeshAgent _agent;
-    private bool isNormal = true;
+    public bool isNormal = true;
     private Animator animator;
 
     public float focusDistance = 5f;
@@ -60,10 +60,7 @@ public class BossController : MonoBehaviour
             {
                 AttackPlayer();
             }
-            // else
-            // {
-            //     animator.SetBool("isRunning", true);
-            // }
+
 
         }
         if (distance > focusDistance)
@@ -89,7 +86,7 @@ public class BossController : MonoBehaviour
     void AttackPlayer()
     {
         isAttacking = true;
-        animator.SetBool("isAttacking", true);
+        if (isNormal) animator.SetBool("isAttacking", true);
 
         coroutine = WaitForAttack(attackDelay); // time to attack 
         StartCoroutine(coroutine);
@@ -103,8 +100,7 @@ public class BossController : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             isAttacking = false;
-            print("Atacando");
-            player.GetComponent<PlayerController>().RemoveHealth(damage);
+            if (isNormal) player.GetComponent<PlayerController>().RemoveHealth(damage);
 
 
         }
@@ -128,10 +124,20 @@ public class BossController : MonoBehaviour
 
                 // Animations
                 isNormal = false;
-                // animator.Play("GetHit", -1, 0f);
-                // coroutine = WaitAnimation(3.0f);
-                // StartCoroutine(coroutine);
+                animator.Play("GetHit", -1, 0f);
+                coroutine = WaitAnimation(4.0f);
+                StartCoroutine(coroutine);
             }
+            ReloadLabel();
+        }
+    }
+    private IEnumerator WaitAnimation(float waitTime)
+    {
+        while (isNormal == false)
+        {
+            yield return new WaitForSeconds(waitTime);
+            isNormal = true;
+
         }
     }
     void ReloadLabel()

@@ -33,9 +33,9 @@ public class SceneManagment : MonoBehaviour
 
     void LateUpdate()
     {
-        enemiesCount = GameObject.FindGameObjectsWithTag("SlimeEnemy").Length;
+        enemiesCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (GameObject.FindGameObjectsWithTag("SlimeEnemy").Length == 0)
+        if (enemiesCount == 0)
         {
             GameManagment.Instance.moveNextLevel();
         }
